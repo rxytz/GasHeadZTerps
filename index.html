@@ -11,13 +11,15 @@
     <video id="flame-video" src="219971_medium.mp4" autoplay loop muted playsinline style="position:fixed;left:0;top:0;width:100vw;height:100vh;object-fit:cover;z-index:-2;"></video>
     <canvas id="bg-canvas"></canvas>
     <header>
-        <div class="logo-container">
-            <h1 class="logo-glow">Mini Shop</h1>
+        <div class="header-row">
+            <button id="info-btn" title="Info anzeigen">ℹ️</button>
+            <div class="logo-container">
+                <h1 class="logo-glow">Mini Shop</h1>
+            </div>
+            <button id="cart-btn" title="Warenkorb öffnen">
+                🛒 <span id="cart-count">0</span>
+            </button>
         </div>
-        <button id="info-btn" title="Info anzeigen">ℹ️</button>
-        <button id="cart-btn" title="Warenkorb öffnen">
-            🛒 <span id="cart-count">0</span>
-        </button>
     </header>
     <main>
         <section id="products"></section>
