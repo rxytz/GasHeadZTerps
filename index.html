@@ -10,22 +10,21 @@
 <body>
     <canvas id="bg-canvas"></canvas>
     <header>
-        <h1>Mini Shop</h1>
+        <div class="logo-container">
+            <h1 class="logo-glow">Mini Shop</h1>
+        </div>
         <button id="cart-btn" title="Warenkorb öffnen">
             🛒 <span id="cart-count">0</span>
         </button>
     </header>
     <main>
         <section id="products"></section>
-    </main>
-    <div id="cart-modal" class="modal">
-        <div class="modal-content">
-            <span class="close" id="close-cart">&times;</span>
+        <section id="cart">
             <h2>Warenkorb</h2>
             <ul id="cart-items"></ul>
             <button id="checkout">Zur Kasse</button>
-        </div>
-    </div>
+        </section>
+    </main>
     <footer>
         <p>© 2026 Mini Shop</p>
     </footer>
