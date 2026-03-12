@@ -79,6 +79,7 @@ window.onclick = function(event) {
 renderProducts();
 renderCart();
 
+
 // --- Flammen-Animation (unten) ---
 const flameCanvas = document.getElementById('flame-canvas');
 const flameCtx = flameCanvas.getContext('2d');
@@ -100,7 +101,6 @@ window.addEventListener('resize', () => {
     bgCanvas.height = height;
 });
 
-// Flammen-Parameter
 // Flammen-Parameter (größer, realistischer)
 const flameCount = 24;
 const flames = [];
@@ -159,17 +159,6 @@ function animateFlames() {
     flameCtx.clearRect(0, 0, width, flameCanvas.height);
     for (const f of flames) {
         f.x += Math.sin(Date.now()/900 + f.phase) * 0.3;
-        drawFlame(f);
-    }
-    requestAnimationFrame(animateFlames);
-}
-animateFlames();
-}
-function animateFlames() {
-    flameCtx.clearRect(0, 0, width, flameCanvas.height);
-    for (const f of flames) {
-        f.y = f.baseY - Math.abs(Math.sin(Date.now()/700 + f.phase) * f.height * 0.7);
-        f.x += Math.sin(Date.now()/900 + f.phase) * 0.2;
         drawFlame(f);
     }
     requestAnimationFrame(animateFlames);
