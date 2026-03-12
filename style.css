@@ -54,16 +54,6 @@ main {
 .product button {
     margin-top: 0.5rem;
 }
-#flame-canvas {
-    position: fixed;
-    left: 0;
-    bottom: 0;
-    width: 100vw;
-    height: 30vh;
-    z-index: 0;
-    pointer-events: none;
-    display: block;
-}
 #bg-canvas {
     position: fixed;
     left: 0;
@@ -74,7 +64,7 @@ main {
     pointer-events: none;
     display: block;
 }
-#cart-modal, #checkout-modal {
+#cart-modal, #checkout-modal, #info-modal {
     display: none;
     position: fixed;
     z-index: 100;
@@ -87,12 +77,11 @@ main {
     justify-content: center;
     align-items: center;
 }
-#cart-modal.active, #checkout-modal.active {
+#cart-modal.active, #checkout-modal.active, #info-modal.active {
     display: flex;
 }
-#checkout-modal {
-    z-index: 101;
-}
+#checkout-modal { z-index: 101; }
+#info-modal { z-index: 102; }
 .modal-content {
     background: rgba(20,40,20,0.95);
     margin: auto;
@@ -112,6 +101,22 @@ main {
     color: #ff3c00;
     cursor: pointer;
     z-index: 10;
+}
+#info-btn {
+    background: #1a2d4d;
+    color: #baffc9;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 50%;
+    font-size: 1.3rem;
+    margin-right: 0.5rem;
+    cursor: pointer;
+    box-shadow: 0 0 8px #00ff80aa;
+    transition: background 0.2s;
+}
+#info-btn:hover {
+    background: #2aff80;
+    color: #0a1a0a;
 }
 footer {
     padding: 2rem;
