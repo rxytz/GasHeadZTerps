@@ -80,81 +80,21 @@ renderProducts();
 renderCart();
 
 
-// --- Flammen-Animation (unten) ---
-const flameCanvas = document.getElementById('flame-canvas');
-const flameCtx = flameCanvas.getContext('2d');
+// --- Hintergrund-Animation: Leuchtende Blätter ---
 const bgCanvas = document.getElementById('bg-canvas');
 const ctx = bgCanvas.getContext('2d');
 let width = window.innerWidth;
 let height = window.innerHeight;
-flameCanvas.width = width;
-flameCanvas.height = Math.floor(height * 0.3);
 bgCanvas.width = width;
 bgCanvas.height = height;
 
 window.addEventListener('resize', () => {
     width = window.innerWidth;
     height = window.innerHeight;
-    flameCanvas.width = width;
-    flameCanvas.height = Math.floor(height * 0.3);
     bgCanvas.width = width;
     bgCanvas.height = height;
 });
 
-// --- Realistische Flammen mit Partikeln ---
-const flameParticles = [];
-const maxParticles = 120;
-function createFlameParticle() {
-    const base = flameCanvas.height;
-    const x = width * 0.2 + Math.random() * width * 0.6;
-    return {
-        x,
-        y: base,
-        vx: (Math.random() - 0.5) * 0.7,
-        vy: -Math.random() * 2.2 - 1.2,
-        size: Math.random() * 22 + 18,
-        alpha: Math.random() * 0.4 + 0.5,
-        life: 0,
-        maxLife: Math.random() * 60 + 60,
-        color: Math.random() > 0.5 ? 'rgba(255,180,0,0.7)' : 'rgba(255,60,0,0.5)'
-    };
-}
-function drawFlameParticles() {
-    flameCtx.clearRect(0, 0, width, flameCanvas.height);
-    for (let i = flameParticles.length - 1; i >= 0; i--) {
-        const p = flameParticles[i];
-        p.x += p.vx + Math.sin(Date.now()/200 + p.x) * 0.1;
-        p.y += p.vy - Math.abs(Math.sin(Date.now()/300 + p.x) * 0.1);
-        p.life++;
-        p.alpha *= 0.985;
-        // Farbverlauf nach oben
-        let grad = flameCtx.createRadialGradient(p.x, p.y, 2, p.x, p.y, p.size);
-        grad.addColorStop(0, 'rgba(255,255,180,0.7)');
-        grad.addColorStop(0.3, p.color);
-        grad.addColorStop(1, 'rgba(255,0,0,0.05)');
-        flameCtx.save();
-        flameCtx.globalAlpha = p.alpha;
-        flameCtx.beginPath();
-        flameCtx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-        flameCtx.fillStyle = grad;
-        flameCtx.shadowColor = '#ffb300';
-        flameCtx.shadowBlur = 32;
-        flameCtx.fill();
-        flameCtx.restore();
-        if (p.life > p.maxLife || p.alpha < 0.05 || p.y < 0) {
-            flameParticles.splice(i, 1);
-        }
-    }
-    // Neue Partikel erzeugen
-    while (flameParticles.length < maxParticles) {
-        flameParticles.push(createFlameParticle());
-    }
-    requestAnimationFrame(drawFlameParticles);
-}
-drawFlameParticles();
-
-
-// --- Hintergrund-Animation: Leuchtende Blätter ---
 function random(min, max) {
     return Math.random() * (max - min) + min;
 }
