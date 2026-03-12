@@ -5,32 +5,10 @@ body {
     background: linear-gradient(135deg, #0a1a0a 0%, #1a2d1a 60%, #3a1a4d 100%);
     min-height: 100vh;
 }
-#flame-video {
-    position: fixed;
-    left: 0;
-    top: 0;
-    width: 100vw;
-    height: 100vh;
-    object-fit: cover;
-    z-index: 0;
-    pointer-events: none;
-    display: block;
-    opacity: 0.45;
-}
-#bg-canvas {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    z-index: 1;
-    pointer-events: none;
-    display: block;
-}
 header {
     background: transparent;
     color: #baffc9;
-    padding: 1.5rem 2rem 1rem 2rem;
+    padding: 1rem;
     text-align: center;
     position: relative;
     z-index: 2;
@@ -38,12 +16,85 @@ header {
     flex-direction: column;
     align-items: center;
 }
+main {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2rem;
+    padding: 2rem;
+}
+#products {
+    flex: 2 1 300px;
+    max-width: 600px;
+    background: rgba(20, 40, 20, 0.5);
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,255,80,0.04);
+    padding: 1rem;
+    border: 3px solid;
+    border-image: linear-gradient(90deg, rgba(255,60,0,0.45), rgba(255,179,0,0.35), rgba(255,60,0,0.45)) 1;
+    box-shadow: 0 0 24px 4px #ff3c0044, 0 0 48px 8px #ffb30022;
+}
+
+#flame-canvas {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100vw;
+    height: 30vh;
+    z-index: 0;
+    pointer-events: none;
+    display: block;
+}
+#cart {
+    flex: 1 1 200px;
+    background: rgba(20, 40, 20, 0.7);
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,255,80,0.08);
+    padding: 1rem;
+    min-width: 220px;
+}
+
+footer {
+    padding: 2rem;
+    text-align: center;
+    position: relative;
+    z-index: 2;
+}
+#cart h2 {
+    margin-top: 0;
+}
+#cart-items {
+    list-style: none;
+    padding: 0;
+}
+#cart-items li {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+    background: transparent;
+    color: #baffc9;
+}
+button {
+    background: #1a4d1a;
+    color: #baffc9;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.2s;
+    box-shadow: 0 0 8px #00ff80aa;
+}
+button:hover {
+    background: #2aff80;
+    color: #0a1a0a;
+}
 .logo-container {
     width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
     margin-bottom: 0.5rem;
+    position: relative;
 }
 .logo-glow {
     font-size: 2.5rem;
@@ -66,152 +117,17 @@ header {
         filter: drop-shadow(0 0 32px #ffb300cc) drop-shadow(0 0 48px #ff3c00cc);
     }
 }
-#cart-btn {
-    background: #1a4d1a;
-    color: #baffc9;
-    border: none;
-    padding: 0.7rem 1.2rem;
-    border-radius: 50px;
-    cursor: pointer;
-    font-size: 1.2rem;
-    box-shadow: 0 0 8px #00ff80aa;
-    position: relative;
-    transition: background 0.2s, color 0.2s;
-}
-#cart-btn:hover {
-    background: #2aff80;
-    color: #0a1a0a;
-}
-#cart-count {
-    background: #2aff80;
-    color: #0a1a0a;
-    border-radius: 50%;
-    padding: 0.1em 0.5em;
-    font-size: 1em;
-    margin-left: 0.3em;
-}
-main {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 2rem;
-    padding: 2rem;
-    position: relative;
-    z-index: 2;
-}
-#products {
-    width: 100%;
-    max-width: 600px;
-    background: rgba(20, 40, 20, 0.5);
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0,255,80,0.04);
-    padding: 1rem;
-    border: 3px solid;
-    border-image: linear-gradient(90deg, rgba(255,60,0,0.45), rgba(255,179,0,0.35), rgba(255,60,0,0.45)) 1;
-    box-shadow: 0 0 24px 4px #ff3c0044, 0 0 48px 8px #ffb30022;
-}
-.product {
-    background: rgba(20, 40, 20, 0.7);
-    border-radius: 8px;
-    margin-bottom: 1.2rem;
-    padding: 1rem;
-    box-shadow: 0 2px 8px rgba(0,255,80,0.08);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-.product h3, .product p {
-    margin: 0;
-}
-.product button {
-    background: #1a4d1a;
-    color: #baffc9;
-    border: none;
-    padding: 0.5rem 1rem;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background 0.2s;
-    box-shadow: 0 0 8px #00ff80aa;
-}
-.product button:hover {
-    background: #2aff80;
-    color: #0a1a0a;
-}
-footer {
-    padding: 2rem;
-    text-align: center;
-    position: relative;
-    z-index: 2;
-}
-/* Modal Warenkorb */
-.modal {
-    display: none;
-    position: fixed;
-    z-index: 10;
-    left: 0;
-    top: 0;
-    width: 100vw;
-    height: 100vh;
-    overflow: auto;
-    background: rgba(10, 30, 10, 0.7);
-}
-.modal-content {
-    background: rgba(20, 40, 20, 0.95);
-    margin: 5% auto;
-    padding: 2rem;
-    border-radius: 12px;
-    width: 90%;
-    max-width: 400px;
-    color: #baffc9;
-    position: relative;
-    box-shadow: 0 0 32px #00ff8055;
-}
-.close {
-    color: #baffc9;
+
+/* Logo oben rechts */
+.corner-logo {
     position: absolute;
-    top: 1rem;
-    right: 1.5rem;
-    font-size: 2rem;
-    font-weight: bold;
-    cursor: pointer;
-    transition: color 0.2s;
-}
-.close:hover {
-    color: #2aff80;
-}
-#cart-items {
-    list-style: none;
-    padding: 0;
-    margin-bottom: 1.5rem;
-}
-#cart-items li {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 0.7rem;
-    background: transparent;
-    color: #baffc9;
-}
-.remove-item {
-    background: none;
-    color: #ff8080;
-    border: none;
-    font-size: 1.2em;
-    cursor: pointer;
-    margin-left: 0.5em;
-}
-#checkout {
-    background: #1a4d1a;
-    color: #baffc9;
-    border: none;
-    padding: 0.7rem 1.5rem;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background 0.2s;
-    box-shadow: 0 0 8px #00ff80aa;
-    font-size: 1.1rem;
-}
-#checkout:hover {
-    background: #2aff80;
-    color: #0a1a0a;
+    top: 0.2rem;
+    right: 0.5rem;
+    width: 48px;
+    height: 48px;
+    object-fit: contain;
+    border-radius: 50%;
+    box-shadow: 0 0 12px 2px #ffb30088, 0 0 24px 4px #ff3c0088;
+    background: rgba(0,0,0,0.2);
+    z-index: 10;
 }
