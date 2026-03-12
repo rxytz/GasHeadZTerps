@@ -5,6 +5,28 @@ body {
     background: linear-gradient(135deg, #0a1a0a 0%, #1a2d1a 60%, #3a1a4d 100%);
     min-height: 100vh;
 }
+#flame-video {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+    z-index: 0;
+    pointer-events: none;
+    display: block;
+    opacity: 0.45;
+}
+#bg-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 1;
+    pointer-events: none;
+    display: block;
+}
 header {
     background: transparent;
     color: #baffc9;
@@ -120,26 +142,6 @@ footer {
     text-align: center;
     position: relative;
     z-index: 2;
-}
-#bg-canvas {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    z-index: 0;
-    pointer-events: none;
-    display: block;
-}
-#flame-canvas {
-    position: fixed;
-    left: 0;
-    bottom: 0;
-    width: 100vw;
-    height: 30vh;
-    z-index: 0;
-    pointer-events: none;
-    display: block;
 }
 /* Modal Warenkorb */
 .modal {
