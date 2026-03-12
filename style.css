@@ -85,8 +85,8 @@ main {
     box-shadow: 0 2px 8px rgba(0,255,80,0.04);
     padding: 1rem;
     border: 3px solid;
-    border-image: linear-gradient(90deg, #ff3c00, #ffb300, #ff3c00) 1;
-    box-shadow: 0 0 24px 4px #ff3c0088, 0 0 48px 8px #ffb30044;
+    border-image: linear-gradient(90deg, rgba(255,60,0,0.45), rgba(255,179,0,0.35), rgba(255,60,0,0.45)) 1;
+    box-shadow: 0 0 24px 4px #ff3c0044, 0 0 48px 8px #ffb30022;
 }
 .product {
     background: rgba(20, 40, 20, 0.7);
@@ -213,3 +213,4 @@ footer {
     background: #2aff80;
     color: #0a1a0a;
 }
+
