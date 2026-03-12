@@ -57,17 +57,28 @@ window.onclick = function(event) {
     }
 };
 
+// Checkout Modal-Logik
+const checkoutModal = document.getElementById('checkout-modal');
+const closeCheckout = document.getElementById('close-checkout');
+const checkoutMessage = document.getElementById('checkout-message');
+
 checkoutBtn.onclick = function() {
     if (cart.length === 0) {
         alert('Warenkorb ist leer!');
         return;
     }
-    if (window.Telegram && Telegram.WebApp) {
-        Telegram.WebApp.sendData(JSON.stringify(cart));
-    } else {
-        alert('Checkout: ' + JSON.stringify(cart));
-    }
+    // Hier kannst du die Nachricht anpassen:
+    checkoutMessage.textContent = "Bitte überprüfe deine Bestellung und folge den weiteren Anweisungen.";
+    checkoutModal.classList.add('active');
 };
+closeCheckout.onclick = function() {
+    checkoutModal.classList.remove('active');
+};
+window.addEventListener('click', function(event) {
+    if (event.target === checkoutModal) {
+        checkoutModal.classList.remove('active');
+    }
+});
 
 renderProducts();
 renderCart();
@@ -218,4 +229,3 @@ function animateLeaves() {
     requestAnimationFrame(animateLeaves);
 }
 animateLeaves();
-
