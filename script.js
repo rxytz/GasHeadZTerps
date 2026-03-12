@@ -11,8 +11,10 @@ function renderProducts() {
     productsDiv.innerHTML = '<h2>Produkte</h2>' +
         products.map(p => `
             <div class="product">
-                <h3>${p.name}</h3>
-                <p>${p.price.toFixed(2)} €</p>
+                <div>
+                    <h3>${p.name}</h3>
+                    <p>${p.price.toFixed(2)} €</p>
+                </div>
                 <button onclick="addToCart(${p.id})">In den Warenkorb</button>
             </div>
         `).join('');
@@ -22,11 +24,16 @@ function renderCart() {
     const cartItems = document.getElementById('cart-items');
     if (cart.length === 0) {
         cartItems.innerHTML = '<li>Dein Warenkorb ist leer.</li>';
+        document.getElementById('cart-count').textContent = 0;
         return;
     }
-    cartItems.innerHTML = cart.map(item => `
-        <li>${item.name} x${item.qty} <span>${(item.price * item.qty).toFixed(2)} €</span></li>
+    cartItems.innerHTML = cart.map((item, idx) => `
+        <li>
+            ${item.name} x${item.qty} <span>${(item.price * item.qty).toFixed(2)} €</span>
+            <button class="remove-item" onclick="removeFromCart(${idx})" title="Entfernen">✖</button>
+        </li>
     `).join('');
+    document.getElementById('cart-count').textContent = cart.reduce((sum, item) => sum + item.qty, 0);
 }
 
 window.addToCart = function(id) {
@@ -38,14 +45,18 @@ window.addToCart = function(id) {
         cart.push({ ...product, qty: 1 });
     }
     renderCart();
-}
+};
+
+window.removeFromCart = function(idx) {
+    cart.splice(idx, 1);
+    renderCart();
+};
 
 document.getElementById('checkout').onclick = function() {
     if (cart.length === 0) {
         alert('Warenkorb ist leer!');
         return;
     }
-    // Telegram WebApp Integration Beispiel
     if (window.Telegram && Telegram.WebApp) {
         Telegram.WebApp.sendData(JSON.stringify(cart));
     } else {
@@ -53,23 +64,22 @@ document.getElementById('checkout').onclick = function() {
     }
 };
 
-document.getElementById('show-products').onclick = function() {
-    document.getElementById('products').style.display = '';
-    document.getElementById('cart').style.display = 'none';
-    this.classList.add('active');
-    document.getElementById('show-cart').classList.remove('active');
+document.getElementById('cart-btn').onclick = function() {
+    document.getElementById('cart-modal').style.display = 'block';
 };
-document.getElementById('show-cart').onclick = function() {
-    document.getElementById('products').style.display = 'none';
-    document.getElementById('cart').style.display = '';
-    this.classList.add('active');
-    document.getElementById('show-products').classList.remove('active');
+document.getElementById('close-cart').onclick = function() {
+    document.getElementById('cart-modal').style.display = 'none';
+};
+window.onclick = function(event) {
+    if (event.target === document.getElementById('cart-modal')) {
+        document.getElementById('cart-modal').style.display = 'none';
+    }
 };
 
 renderProducts();
 renderCart();
 
-// --- Hintergrund-Animation: Leuchtende Blätter ---
+// --- Realistische Blätter-Animation ---
 const canvas = document.getElementById('bg-canvas');
 const ctx = canvas.getContext('2d');
 let width = window.innerWidth;
@@ -88,24 +98,27 @@ function random(min, max) {
     return Math.random() * (max - min) + min;
 }
 
-const leafCount = 30;
+const leafCount = 32;
 const leaves = [];
 const leafColors = [
     'rgba(80,255,80,0.35)',
     'rgba(60,220,120,0.25)',
-    'rgba(180,255,180,0.3)'
+    'rgba(180,255,180,0.3)',
+    'rgba(120,255,180,0.22)'
 ];
 
 function createLeaf() {
     return {
         x: random(0, width),
         y: random(-height, 0),
-        size: random(40, 80),
-        speed: random(0.5, 1.5),
+        size: random(32, 64),
+        speed: random(0.7, 1.7),
         sway: random(1, 3),
         swayPhase: random(0, Math.PI * 2),
         color: leafColors[Math.floor(random(0, leafColors.length))],
-        glow: random(0.5, 1)
+        glow: random(0.5, 1),
+        angle: random(0, Math.PI * 2),
+        rotationSpeed: random(-0.01, 0.01)
     };
 }
 
@@ -119,7 +132,8 @@ function drawLeaf(leaf) {
     ctx.shadowColor = '#7fff7f';
     ctx.shadowBlur = 32 * leaf.glow;
     ctx.translate(leaf.x, leaf.y);
-    ctx.rotate(Math.sin(leaf.y / 60 + leaf.swayPhase) * 0.3);
+    ctx.rotate(leaf.angle);
+    // Blattkörper
     ctx.beginPath();
     ctx.moveTo(0, 0);
     ctx.bezierCurveTo(
@@ -135,6 +149,13 @@ function drawLeaf(leaf) {
     ctx.closePath();
     ctx.fillStyle = leaf.color;
     ctx.fill();
+    // Stiel
+    ctx.beginPath();
+    ctx.moveTo(0, leaf.size);
+    ctx.lineTo(0, leaf.size + leaf.size * 0.3);
+    ctx.strokeStyle = 'rgba(120,255,120,0.5)';
+    ctx.lineWidth = 2;
+    ctx.stroke();
     ctx.restore();
 }
 
@@ -143,7 +164,8 @@ function animateLeaves() {
     for (const leaf of leaves) {
         leaf.y += leaf.speed;
         leaf.x += Math.sin(leaf.y / 40 + leaf.swayPhase) * leaf.sway;
-        if (leaf.y > height + 20) {
+        leaf.angle += leaf.rotationSpeed;
+        if (leaf.y > height + 40) {
             Object.assign(leaf, createLeaf(), { y: -random(20, 60) });
         }
         drawLeaf(leaf);
