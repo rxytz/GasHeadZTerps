@@ -94,7 +94,6 @@ button:hover {
     justify-content: center;
     align-items: center;
     margin-bottom: 0.5rem;
-    position: relative;
 }
 .logo-glow {
     font-size: 2.5rem;
@@ -116,18 +115,4 @@ button:hover {
     100% {
         filter: drop-shadow(0 0 32px #ffb300cc) drop-shadow(0 0 48px #ff3c00cc);
     }
-}
-
-/* Logo oben rechts */
-.corner-logo {
-    position: absolute;
-    top: 0.2rem;
-    right: 0.5rem;
-    width: 48px;
-    height: 48px;
-    object-fit: contain;
-    border-radius: 50%;
-    box-shadow: 0 0 12px 2px #ffb30088, 0 0 24px 4px #ff3c0088;
-    background: rgba(0,0,0,0.2);
-    z-index: 10;
 }
