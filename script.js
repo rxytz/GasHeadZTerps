@@ -20,6 +20,10 @@ function renderProducts() {
 
 function renderCart() {
     const cartItems = document.getElementById('cart-items');
+    if (cart.length === 0) {
+        cartItems.innerHTML = '<li>Dein Warenkorb ist leer.</li>';
+        return;
+    }
     cartItems.innerHTML = cart.map(item => `
         <li>${item.name} x${item.qty} <span>${(item.price * item.qty).toFixed(2)} €</span></li>
     `).join('');
@@ -49,6 +53,18 @@ document.getElementById('checkout').onclick = function() {
     }
 };
 
+document.getElementById('show-products').onclick = function() {
+    document.getElementById('products').style.display = '';
+    document.getElementById('cart').style.display = 'none';
+    this.classList.add('active');
+    document.getElementById('show-cart').classList.remove('active');
+};
+document.getElementById('show-cart').onclick = function() {
+    document.getElementById('products').style.display = 'none';
+    document.getElementById('cart').style.display = '';
+    this.classList.add('active');
+    document.getElementById('show-products').classList.remove('active');
+};
 
 renderProducts();
 renderCart();
@@ -75,9 +91,9 @@ function random(min, max) {
 const leafCount = 30;
 const leaves = [];
 const leafColors = [
-    'rgba(80,255,80,0.55)',
-    'rgba(60,220,120,0.45)',
-    'rgba(180,255,180,0.5)'
+    'rgba(80,255,80,0.35)',
+    'rgba(60,220,120,0.25)',
+    'rgba(180,255,180,0.3)'
 ];
 
 function createLeaf() {
@@ -99,7 +115,7 @@ for (let i = 0; i < leafCount; i++) {
 
 function drawLeaf(leaf) {
     ctx.save();
-    ctx.globalAlpha = 0.9;
+    ctx.globalAlpha = 0.7;
     ctx.shadowColor = '#7fff7f';
     ctx.shadowBlur = 32 * leaf.glow;
     ctx.translate(leaf.x, leaf.y);
