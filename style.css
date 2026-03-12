@@ -84,6 +84,9 @@ main {
     border-radius: 8px;
     box-shadow: 0 2px 8px rgba(0,255,80,0.04);
     padding: 1rem;
+    border: 3px solid;
+    border-image: linear-gradient(90deg, #ff3c00, #ffb300, #ff3c00) 1;
+    box-shadow: 0 0 24px 4px #ff3c0088, 0 0 48px 8px #ffb30044;
 }
 .product {
     background: rgba(20, 40, 20, 0.7);
@@ -124,6 +127,16 @@ footer {
     left: 0;
     width: 100vw;
     height: 100vh;
+    z-index: 0;
+    pointer-events: none;
+    display: block;
+}
+#flame-canvas {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100vw;
+    height: 30vh;
     z-index: 0;
     pointer-events: none;
     display: block;
