@@ -14,6 +14,7 @@
         <div class="logo-container">
             <h1 class="logo-glow">Mini Shop</h1>
         </div>
+        <button id="info-btn" title="Info anzeigen">ℹ️</button>
         <button id="cart-btn" title="Warenkorb öffnen">
             🛒 <span id="cart-count">0</span>
         </button>
@@ -36,10 +37,16 @@
             <p id="checkout-message">Bitte überprüfe deine Bestellung und folge den weiteren Anweisungen.</p>
         </div>
     </div>
+    <div id="info-modal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="close-info">&times;</span>
+            <h2>Info</h2>
+            <p id="info-message">Hier kannst du deine Info oder Hinweise eintragen!</p>
+        </div>
+    </div>
     <footer>
         <p>© 2026 Mini Shop</p>
     </footer>
     <script src="script.js"></script>
 </body>
 </html>
-
