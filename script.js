@@ -101,7 +101,8 @@ window.addEventListener('resize', () => {
 });
 
 // Flammen-Parameter
-const flameCount = 32;
+// Flammen-Parameter (größer, realistischer)
+const flameCount = 24;
 const flames = [];
 function random(min, max) {
     return Math.random() * (max - min) + min;
@@ -111,11 +112,16 @@ function createFlame() {
         x: random(0, width),
         baseY: flameCanvas.height,
         y: flameCanvas.height,
-        height: random(40, 100),
-        width: random(16, 32),
-        speed: random(0.7, 1.5),
+        height: random(120, 220), // deutlich höher
+        width: random(32, 64),    // breiter
+        speed: random(0.5, 1.2),
         phase: random(0, Math.PI * 2),
-        color: `rgba(${Math.floor(random(220,255))},${Math.floor(random(80,120))},0,${random(0.18,0.32)})`
+        colorStops: [
+            `rgba(255,255,180,0.18)`,
+            `rgba(255,180,0,0.22)`,
+            `rgba(255,60,0,0.18)`,
+            `rgba(255,0,0,0.12)`
+        ]
     };
 }
 for (let i = 0; i < flameCount; i++) {
@@ -123,20 +129,41 @@ for (let i = 0; i < flameCount; i++) {
 }
 function drawFlame(f) {
     flameCtx.save();
+    const grad = flameCtx.createLinearGradient(f.x, f.baseY, f.x, f.baseY - f.height);
+    grad.addColorStop(0, f.colorStops[0]);
+    grad.addColorStop(0.4, f.colorStops[1]);
+    grad.addColorStop(0.7, f.colorStops[2]);
+    grad.addColorStop(1, f.colorStops[3]);
     flameCtx.beginPath();
     flameCtx.moveTo(f.x, f.baseY);
+    // Mehr Kurven für realistischeres Flackern
     flameCtx.bezierCurveTo(
-        f.x - f.width/2, f.baseY - f.height/2,
-        f.x + f.width/2, f.baseY - f.height/2,
+        f.x - f.width * 0.7, f.baseY - f.height * 0.3 + Math.sin(Date.now()/400 + f.phase) * 10,
+        f.x - f.width * 0.5, f.baseY - f.height * 0.7 + Math.cos(Date.now()/600 + f.phase) * 18,
         f.x, f.baseY - f.height
+    );
+    flameCtx.bezierCurveTo(
+        f.x + f.width * 0.5, f.baseY - f.height * 0.7 + Math.sin(Date.now()/500 + f.phase) * 18,
+        f.x + f.width * 0.7, f.baseY - f.height * 0.3 + Math.cos(Date.now()/300 + f.phase) * 10,
+        f.x, f.baseY
     );
     flameCtx.closePath();
     flameCtx.shadowColor = '#ffb300';
-    flameCtx.shadowBlur = 24;
-    flameCtx.fillStyle = f.color;
-    flameCtx.globalAlpha = 0.7;
+    flameCtx.shadowBlur = 48;
+    flameCtx.globalAlpha = 0.85;
+    flameCtx.fillStyle = grad;
     flameCtx.fill();
     flameCtx.restore();
+}
+function animateFlames() {
+    flameCtx.clearRect(0, 0, width, flameCanvas.height);
+    for (const f of flames) {
+        f.x += Math.sin(Date.now()/900 + f.phase) * 0.3;
+        drawFlame(f);
+    }
+    requestAnimationFrame(animateFlames);
+}
+animateFlames();
 }
 function animateFlames() {
     flameCtx.clearRect(0, 0, width, flameCanvas.height);
@@ -219,3 +246,4 @@ function animateLeaves() {
     requestAnimationFrame(animateLeaves);
 }
 animateLeaves();
+
