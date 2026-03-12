@@ -69,6 +69,7 @@ checkoutBtn.onclick = function() {
     }
     // Hier kannst du die Nachricht anpassen:
     checkoutMessage.textContent = "Bitte überprüfe deine Bestellung und folge den weiteren Anweisungen.";
+    cartModal.classList.remove('active');
     checkoutModal.classList.add('active');
 };
 closeCheckout.onclick = function() {
