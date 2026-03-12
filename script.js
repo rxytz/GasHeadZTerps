@@ -191,4 +191,3 @@ function animateLeaves() {
     requestAnimationFrame(animateLeaves);
 }
 animateLeaves();
-
