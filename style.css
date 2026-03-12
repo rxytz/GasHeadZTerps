@@ -2,11 +2,12 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background: #f7f7f7;
+    background: linear-gradient(135deg, #0a1a0a 0%, #1a2d1a 100%);
+    min-height: 100vh;
 }
 header {
-    background: #0088cc;
-    color: #fff;
+    background: transparent;
+    color: #baffc9;
     padding: 1rem;
     text-align: center;
 }
@@ -23,9 +24,9 @@ main {
 }
 #cart {
     flex: 1 1 200px;
-    background: #fff;
+    background: rgba(20, 40, 20, 0.7);
     border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    box-shadow: 0 2px 8px rgba(0,255,80,0.08);
     padding: 1rem;
     min-width: 220px;
 }
