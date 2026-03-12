@@ -21,6 +21,10 @@ main {
 #products {
     flex: 2 1 300px;
     max-width: 600px;
+    background: rgba(20, 40, 20, 0.5);
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,255,80,0.04);
+    padding: 1rem;
 }
 #cart {
     flex: 1 1 200px;
@@ -48,16 +52,20 @@ footer {
     display: flex;
     justify-content: space-between;
     margin-bottom: 0.5rem;
+    background: transparent;
+    color: #baffc9;
 }
 button {
-    background: #0088cc;
-    color: #fff;
+    background: #1a4d1a;
+    color: #baffc9;
     border: none;
     padding: 0.5rem 1rem;
     border-radius: 4px;
     cursor: pointer;
     transition: background 0.2s;
+    box-shadow: 0 0 8px #00ff80aa;
 }
 button:hover {
-    background: #005f88;
+    background: #2aff80;
+    color: #0a1a0a;
 }
