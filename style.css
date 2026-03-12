@@ -74,7 +74,7 @@ main {
     pointer-events: none;
     display: block;
 }
-#cart-modal {
+#cart-modal, #checkout-modal {
     display: none;
     position: fixed;
     z-index: 100;
@@ -87,8 +87,11 @@ main {
     justify-content: center;
     align-items: center;
 }
-#cart-modal.active {
+#cart-modal.active, #checkout-modal.active {
     display: flex;
+}
+#checkout-modal {
+    z-index: 101;
 }
 .modal-content {
     background: rgba(20,40,20,0.95);
