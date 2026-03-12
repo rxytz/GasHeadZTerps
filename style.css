@@ -5,16 +5,56 @@ body {
     background: linear-gradient(135deg, #0a1a0a 0%, #1a2d1a 60%, #3a1a4d 100%);
     min-height: 100vh;
 }
-header {
+.header-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
     background: transparent;
     color: #baffc9;
-    padding: 1rem;
-    text-align: center;
+    padding: 1rem 0.5rem;
     position: relative;
     z-index: 2;
+}
+.logo-container {
     display: flex;
-    flex-direction: column;
+    justify-content: center;
     align-items: center;
+    flex: 1 1 auto;
+    margin-bottom: 0;
+}
+#info-btn {
+    background: #1a2d4d;
+    color: #baffc9;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 50%;
+    font-size: 1.3rem;
+    margin-right: 0;
+    margin-left: 0.5rem;
+    cursor: pointer;
+    box-shadow: 0 0 8px #00ff80aa;
+    transition: background 0.2s;
+}
+#info-btn:hover {
+    background: #2aff80;
+    color: #0a1a0a;
+}
+#cart-btn {
+    background: #1a4d1a;
+    color: #baffc9;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    margin-left: 0;
+    margin-right: 0.5rem;
+    cursor: pointer;
+    transition: background 0.2s;
+    box-shadow: 0 0 8px #00ff80aa;
+}
+#cart-btn:hover {
+    background: #2aff80;
+    color: #0a1a0a;
 }
 main {
     display: flex;
@@ -102,22 +142,6 @@ main {
     cursor: pointer;
     z-index: 10;
 }
-#info-btn {
-    background: #1a2d4d;
-    color: #baffc9;
-    border: none;
-    padding: 0.5rem 1rem;
-    border-radius: 50%;
-    font-size: 1.3rem;
-    margin-right: 0.5rem;
-    cursor: pointer;
-    box-shadow: 0 0 8px #00ff80aa;
-    transition: background 0.2s;
-}
-#info-btn:hover {
-    background: #2aff80;
-    color: #0a1a0a;
-}
 footer {
     padding: 2rem;
     text-align: center;
@@ -148,13 +172,6 @@ button {
 button:hover {
     background: #2aff80;
     color: #0a1a0a;
-}
-.logo-container {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 0.5rem;
 }
 .logo-glow {
     font-size: 2.5rem;
