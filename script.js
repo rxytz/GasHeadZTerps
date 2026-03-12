@@ -72,24 +72,24 @@ function random(min, max) {
     return Math.random() * (max - min) + min;
 }
 
-const leafCount = 25;
+const leafCount = 30;
 const leaves = [];
 const leafColors = [
-    'rgba(120,255,120,0.25)',
-    'rgba(80,220,120,0.18)',
-    'rgba(180,255,180,0.22)'
+    'rgba(80,255,80,0.55)',
+    'rgba(60,220,120,0.45)',
+    'rgba(180,255,180,0.5)'
 ];
 
 function createLeaf() {
     return {
         x: random(0, width),
         y: random(-height, 0),
-        size: random(24, 48),
-        speed: random(0.3, 1.1),
-        sway: random(0.5, 2),
+        size: random(40, 80),
+        speed: random(0.5, 1.5),
+        sway: random(1, 3),
         swayPhase: random(0, Math.PI * 2),
         color: leafColors[Math.floor(random(0, leafColors.length))],
-        glow: random(0.2, 0.5)
+        glow: random(0.5, 1)
     };
 }
 
@@ -99,9 +99,9 @@ for (let i = 0; i < leafCount; i++) {
 
 function drawLeaf(leaf) {
     ctx.save();
-    ctx.globalAlpha = 0.7;
+    ctx.globalAlpha = 0.9;
     ctx.shadowColor = '#7fff7f';
-    ctx.shadowBlur = 16 * leaf.glow;
+    ctx.shadowBlur = 32 * leaf.glow;
     ctx.translate(leaf.x, leaf.y);
     ctx.rotate(Math.sin(leaf.y / 60 + leaf.swayPhase) * 0.3);
     ctx.beginPath();
