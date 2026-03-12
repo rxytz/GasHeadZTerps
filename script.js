@@ -11,10 +11,8 @@ function renderProducts() {
     productsDiv.innerHTML = '<h2>Produkte</h2>' +
         products.map(p => `
             <div class="product">
-                <div>
-                    <h3>${p.name}</h3>
-                    <p>${p.price.toFixed(2)} €</p>
-                </div>
+                <h3>${p.name}</h3>
+                <p>${p.price.toFixed(2)} €</p>
                 <button onclick="addToCart(${p.id})">In den Warenkorb</button>
             </div>
         `).join('');
@@ -22,17 +20,11 @@ function renderProducts() {
 
 function renderCart() {
     const cartItems = document.getElementById('cart-items');
-    if (cart.length === 0) {
-        cartItems.innerHTML = '<li>Dein Warenkorb ist leer.</li>';
-        document.getElementById('cart-count').textContent = 0;
-        return;
-    }
-    cartItems.innerHTML = cart.map((item, idx) => `
-        <li>
-            ${item.name} x${item.qty} <span>${(item.price * item.qty).toFixed(2)} €</span>
-            <button class="remove-item" onclick="removeFromCart(${idx})" title="Entfernen">✖</button>
-        </li>
-    `).join('');
+    cartItems.innerHTML = cart.length === 0
+        ? '<li>Dein Warenkorb ist leer.</li>'
+        : cart.map(item => `
+            <li>${item.name} x${item.qty} <span>${(item.price * item.qty).toFixed(2)} €</span></li>
+        `).join('');
     document.getElementById('cart-count').textContent = cart.reduce((sum, item) => sum + item.qty, 0);
 }
 
@@ -45,14 +37,27 @@ window.addToCart = function(id) {
         cart.push({ ...product, qty: 1 });
     }
     renderCart();
+}
+
+// Modal-Logik für Warenkorb
+const cartBtn = document.getElementById('cart-btn');
+const cartModal = document.getElementById('cart-modal');
+const closeCart = document.getElementById('close-cart');
+const checkoutBtn = document.getElementById('checkout');
+
+cartBtn.onclick = function() {
+    cartModal.classList.add('active');
+};
+closeCart.onclick = function() {
+    cartModal.classList.remove('active');
+};
+window.onclick = function(event) {
+    if (event.target === cartModal) {
+        cartModal.classList.remove('active');
+    }
 };
 
-window.removeFromCart = function(idx) {
-    cart.splice(idx, 1);
-    renderCart();
-};
-
-document.getElementById('checkout').onclick = function() {
+checkoutBtn.onclick = function() {
     if (cart.length === 0) {
         alert('Warenkorb ist leer!');
         return;
@@ -64,37 +69,83 @@ document.getElementById('checkout').onclick = function() {
     }
 };
 
-document.getElementById('cart-btn').onclick = function() {
-    document.getElementById('cart-modal').style.display = 'block';
-};
-document.getElementById('close-cart').onclick = function() {
-    document.getElementById('cart-modal').style.display = 'none';
-};
-window.onclick = function(event) {
-    if (event.target === document.getElementById('cart-modal')) {
-        document.getElementById('cart-modal').style.display = 'none';
-    }
-};
-
 renderProducts();
 renderCart();
 
-
-// --- Hintergrund-Animation: Leuchtende Blätter ---
+// --- Flammen-Animation (unten) ---
+const flameCanvas = document.getElementById('flame-canvas');
+const flameCtx = flameCanvas.getContext('2d');
 const bgCanvas = document.getElementById('bg-canvas');
 const ctx = bgCanvas.getContext('2d');
 let width = window.innerWidth;
 let height = window.innerHeight;
+flameCanvas.width = width;
+flameCanvas.height = Math.floor(height * 0.3);
 bgCanvas.width = width;
 bgCanvas.height = height;
 
 window.addEventListener('resize', () => {
     width = window.innerWidth;
     height = window.innerHeight;
+    flameCanvas.width = width;
+    flameCanvas.height = Math.floor(height * 0.3);
     bgCanvas.width = width;
     bgCanvas.height = height;
 });
 
+// --- Realistische Flammen mit Partikeln ---
+const flameParticles = [];
+const maxParticles = 120;
+function createFlameParticle() {
+    const base = flameCanvas.height;
+    const x = width * 0.2 + Math.random() * width * 0.6;
+    return {
+        x,
+        y: base,
+        vx: (Math.random() - 0.5) * 0.7,
+        vy: -Math.random() * 2.2 - 1.2,
+        size: Math.random() * 22 + 18,
+        alpha: Math.random() * 0.4 + 0.5,
+        life: 0,
+        maxLife: Math.random() * 60 + 60,
+        color: Math.random() > 0.5 ? 'rgba(255,180,0,0.7)' : 'rgba(255,60,0,0.5)'
+    };
+}
+function drawFlameParticles() {
+    flameCtx.clearRect(0, 0, width, flameCanvas.height);
+    for (let i = flameParticles.length - 1; i >= 0; i--) {
+        const p = flameParticles[i];
+        p.x += p.vx + Math.sin(Date.now()/200 + p.x) * 0.1;
+        p.y += p.vy - Math.abs(Math.sin(Date.now()/300 + p.x) * 0.1);
+        p.life++;
+        p.alpha *= 0.985;
+        // Farbverlauf nach oben
+        let grad = flameCtx.createRadialGradient(p.x, p.y, 2, p.x, p.y, p.size);
+        grad.addColorStop(0, 'rgba(255,255,180,0.7)');
+        grad.addColorStop(0.3, p.color);
+        grad.addColorStop(1, 'rgba(255,0,0,0.05)');
+        flameCtx.save();
+        flameCtx.globalAlpha = p.alpha;
+        flameCtx.beginPath();
+        flameCtx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+        flameCtx.fillStyle = grad;
+        flameCtx.shadowColor = '#ffb300';
+        flameCtx.shadowBlur = 32;
+        flameCtx.fill();
+        flameCtx.restore();
+        if (p.life > p.maxLife || p.alpha < 0.05 || p.y < 0) {
+            flameParticles.splice(i, 1);
+        }
+    }
+    // Neue Partikel erzeugen
+    while (flameParticles.length < maxParticles) {
+        flameParticles.push(createFlameParticle());
+    }
+    requestAnimationFrame(drawFlameParticles);
+}
+drawFlameParticles();
+
+// --- Hintergrund-Animation: Leuchtende Blätter ---
 function random(min, max) {
     return Math.random() * (max - min) + min;
 }
@@ -167,3 +218,4 @@ function animateLeaves() {
     requestAnimationFrame(animateLeaves);
 }
 animateLeaves();
+
