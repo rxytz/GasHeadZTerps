@@ -79,25 +79,77 @@ window.onclick = function(event) {
 renderProducts();
 renderCart();
 
-// --- Realistische Blätter-Animation ---
-const canvas = document.getElementById('bg-canvas');
-const ctx = canvas.getContext('2d');
+// --- Flammen-Animation (unten) ---
+const flameCanvas = document.getElementById('flame-canvas');
+const flameCtx = flameCanvas.getContext('2d');
+const bgCanvas = document.getElementById('bg-canvas');
+const ctx = bgCanvas.getContext('2d');
 let width = window.innerWidth;
 let height = window.innerHeight;
-canvas.width = width;
-canvas.height = height;
+flameCanvas.width = width;
+flameCanvas.height = Math.floor(height * 0.3);
+bgCanvas.width = width;
+bgCanvas.height = height;
 
 window.addEventListener('resize', () => {
     width = window.innerWidth;
     height = window.innerHeight;
-    canvas.width = width;
-    canvas.height = height;
+    flameCanvas.width = width;
+    flameCanvas.height = Math.floor(height * 0.3);
+    bgCanvas.width = width;
+    bgCanvas.height = height;
 });
 
+// Flammen-Parameter
+const flameCount = 32;
+const flames = [];
 function random(min, max) {
     return Math.random() * (max - min) + min;
 }
+function createFlame() {
+    return {
+        x: random(0, width),
+        baseY: flameCanvas.height,
+        y: flameCanvas.height,
+        height: random(40, 100),
+        width: random(16, 32),
+        speed: random(0.7, 1.5),
+        phase: random(0, Math.PI * 2),
+        color: `rgba(${Math.floor(random(220,255))},${Math.floor(random(80,120))},0,${random(0.18,0.32)})`
+    };
+}
+for (let i = 0; i < flameCount; i++) {
+    flames.push(createFlame());
+}
+function drawFlame(f) {
+    flameCtx.save();
+    flameCtx.beginPath();
+    flameCtx.moveTo(f.x, f.baseY);
+    flameCtx.bezierCurveTo(
+        f.x - f.width/2, f.baseY - f.height/2,
+        f.x + f.width/2, f.baseY - f.height/2,
+        f.x, f.baseY - f.height
+    );
+    flameCtx.closePath();
+    flameCtx.shadowColor = '#ffb300';
+    flameCtx.shadowBlur = 24;
+    flameCtx.fillStyle = f.color;
+    flameCtx.globalAlpha = 0.7;
+    flameCtx.fill();
+    flameCtx.restore();
+}
+function animateFlames() {
+    flameCtx.clearRect(0, 0, width, flameCanvas.height);
+    for (const f of flames) {
+        f.y = f.baseY - Math.abs(Math.sin(Date.now()/700 + f.phase) * f.height * 0.7);
+        f.x += Math.sin(Date.now()/900 + f.phase) * 0.2;
+        drawFlame(f);
+    }
+    requestAnimationFrame(animateFlames);
+}
+animateFlames();
 
+// --- Hintergrund-Animation: Leuchtende Blätter ---
 const leafCount = 32;
 const leaves = [];
 const leafColors = [
@@ -106,7 +158,6 @@ const leafColors = [
     'rgba(180,255,180,0.3)',
     'rgba(120,255,180,0.22)'
 ];
-
 function createLeaf() {
     return {
         x: random(0, width),
@@ -121,11 +172,9 @@ function createLeaf() {
         rotationSpeed: random(-0.01, 0.01)
     };
 }
-
 for (let i = 0; i < leafCount; i++) {
     leaves.push(createLeaf());
 }
-
 function drawLeaf(leaf) {
     ctx.save();
     ctx.globalAlpha = 0.7;
@@ -133,7 +182,6 @@ function drawLeaf(leaf) {
     ctx.shadowBlur = 32 * leaf.glow;
     ctx.translate(leaf.x, leaf.y);
     ctx.rotate(leaf.angle);
-    // Blattkörper
     ctx.beginPath();
     ctx.moveTo(0, 0);
     ctx.bezierCurveTo(
@@ -149,7 +197,6 @@ function drawLeaf(leaf) {
     ctx.closePath();
     ctx.fillStyle = leaf.color;
     ctx.fill();
-    // Stiel
     ctx.beginPath();
     ctx.moveTo(0, leaf.size);
     ctx.lineTo(0, leaf.size + leaf.size * 0.3);
@@ -158,7 +205,6 @@ function drawLeaf(leaf) {
     ctx.stroke();
     ctx.restore();
 }
-
 function animateLeaves() {
     ctx.clearRect(0, 0, width, height);
     for (const leaf of leaves) {
@@ -172,5 +218,4 @@ function animateLeaves() {
     }
     requestAnimationFrame(animateLeaves);
 }
-
 animateLeaves();
