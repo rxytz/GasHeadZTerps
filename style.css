@@ -30,6 +30,14 @@
     padding: 10px;
 }
 
+/* Button Container */
+.button-container {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
 /* Cart Button in Header */
 .cart-toggle-btn {
     background: linear-gradient(135deg, #004d00, #006400) !important;
