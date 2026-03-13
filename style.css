@@ -21,6 +21,15 @@
     z-index: -1;
 }
 
+/* Site Logo */
+.site-logo {
+    max-width: 300px;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+    padding: 10px;
+}
+
 /* Cart Button in Header */
 .cart-toggle-btn {
     background: linear-gradient(135deg, #004d00, #006400) !important;
