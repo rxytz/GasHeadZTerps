@@ -1,4 +1,69 @@
-// Neuer Shop: Hier kannst du dein JavaScript schreiben
+// Telegram Mini Shop – Modernes Grundgerüst
+const products = [
+    { id: 1, title: 'Produkt A', price: 9.99 },
+    { id: 2, title: 'Produkt B', price: 14.99 },
+    { id: 3, title: 'Produkt C', price: 7.49 }
+];
+let cart = [];
+
+function renderProducts() {
+    const list = document.getElementById('product-list');
+    list.innerHTML = '';
+    products.forEach(product => {
+        const card = document.createElement('div');
+        card.className = 'product-card';
+        card.innerHTML = `
+            <div class="product-title">${product.title}</div>
+            <div class="product-price">${product.price.toFixed(2)} €</div>
+            <button class="add-btn" data-id="${product.id}">In den Warenkorb</button>
+        `;
+        list.appendChild(card);
+    });
+    document.querySelectorAll('.add-btn').forEach(btn => {
+        btn.addEventListener('click', e => {
+            const id = parseInt(e.target.getAttribute('data-id'));
+            addToCart(id);
+        });
+    });
+}
+
+function addToCart(id) {
+    const product = products.find(p => p.id === id);
+    if (!product) return;
+    cart.push(product);
+    updateCartCount();
+}
+
+function updateCartCount() {
+    document.getElementById('cart-count').textContent = cart.length;
+}
+
+function renderCart() {
+    const items = document.getElementById('cart-items');
+    if (cart.length === 0) {
+        items.innerHTML = '<p>Dein Warenkorb ist leer.</p>';
+        return;
+    }
+    items.innerHTML = cart.map((item, i) =>
+        `<div>${item.title} – ${item.price.toFixed(2)} €</div>`
+    ).join('');
+}
+
+document.getElementById('cart-btn').addEventListener('click', () => {
+    renderCart();
+    document.getElementById('cart-modal').classList.remove('hidden');
+});
+document.getElementById('close-cart').addEventListener('click', () => {
+    document.getElementById('cart-modal').classList.add('hidden');
+});
+document.getElementById('checkout-btn').addEventListener('click', () => {
+    alert('Checkout kommt bald!');
+});
+
+window.onload = () => {
+    renderProducts();
+    updateCartCount();
+};
 // --- Produktdaten ---
 const products = [
     { id: 1, name: "Produkt A", price: 9.99 },

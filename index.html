@@ -3,10 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Neuer Shop</title>
+    <title>Telegram Mini Shop</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Hier beginnt dein neuer Shop! -->
+    <header class="shop-header">
+        <div class="shop-logo">MiniShop</div>
+        <button id="cart-btn" class="icon-btn" title="Warenkorb">
+            <span class="cart-icon">🛒</span>
+            <span id="cart-count">0</span>
+        </button>
+    </header>
+    <main>
+        <section id="product-list" class="product-list"></section>
+    </main>
+    <div id="cart-modal" class="modal hidden">
+        <div class="modal-content">
+            <span class="close-modal" id="close-cart">×</span>
+            <h2>Warenkorb</h2>
+            <div id="cart-items"></div>
+            <button id="checkout-btn">Zur Kasse</button>
+        </div>
+    </div>
+    <script src="script.js"></script>
 </body>
 </html>
 <<<<<<< HEAD
