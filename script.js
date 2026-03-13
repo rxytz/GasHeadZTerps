@@ -238,6 +238,126 @@ window.onload = function() {
     setupInfoModal();
     setupCartModals();
 };
+// --- Produktdaten ---
+const products = [
+    { id: 1, name: "Produkt A", price: 9.99 },
+    { id: 2, name: "Produkt B", price: 14.99 },
+    { id: 3, name: "Produkt C", price: 7.49 }
+];
+const cart = [];
+
+// --- Produktliste rendern ---
+function renderProducts() {
+    const productsDiv = document.getElementById('products');
+    if (!productsDiv) return;
+    productsDiv.innerHTML = '<h2>Produkte</h2>' +
+        products.map(p => `
+            <div class="product">
+                <h3>${p.name}</h3>
+                <p>${p.price.toFixed(2)} €</p>
+                <button onclick="addToCart(${p.id})">In den Warenkorb</button>
+            </div>
+        `).join('');
+}
+
+// --- Warenkorb rendern ---
+function renderCart() {
+    const cartItems = document.getElementById('cart-items');
+    if (!cartItems) return;
+    cartItems.innerHTML = cart.length === 0
+        ? '<li>Dein Warenkorb ist leer.</li>'
+        : cart.map(item => `
+            <li>${item.name} x${item.qty} <span>${(item.price * item.qty).toFixed(2)} €</span></li>
+        `).join('');
+    const cartCount = document.getElementById('cart-count');
+    if (cartCount) cartCount.textContent = cart.reduce((sum, item) => sum + item.qty, 0);
+}
+
+// --- Produkt zum Warenkorb hinzufügen ---
+window.addToCart = function(id) {
+    const product = products.find(p => p.id === id);
+    if (!product) return;
+    const existing = cart.find(item => item.id === id);
+    if (existing) {
+        existing.qty++;
+    } else {
+        cart.push({ ...product, qty: 1 });
+    }
+    renderCart();
+};
+
+// --- Info-Modal Logik ---
+function setupInfoModal() {
+    const infoBtn = document.getElementById('info-btn');
+    const infoModal = document.getElementById('info-modal');
+    const closeInfo = document.getElementById('close-info');
+    const infoMessage = document.getElementById('info-message');
+    if (infoBtn && infoModal && closeInfo && infoMessage) {
+        infoBtn.onclick = function() {
+            infoMessage.textContent = "Hier kannst du deine Info oder Hinweise eintragen!";
+            infoModal.classList.add('active');
+        };
+        closeInfo.onclick = function() {
+            infoModal.classList.remove('active');
+        };
+        window.addEventListener('click', function(event) {
+            if (event.target === infoModal) {
+                infoModal.classList.remove('active');
+            }
+        });
+    }
+}
+
+// --- Warenkorb- und Checkout-Modal Logik ---
+function setupCartModals() {
+    const cartBtn = document.getElementById('cart-btn');
+    const cartModal = document.getElementById('cart-modal');
+    const closeCart = document.getElementById('close-cart');
+    const checkoutBtn = document.getElementById('checkout');
+    const checkoutModal = document.getElementById('checkout-modal');
+    const closeCheckout = document.getElementById('close-checkout');
+    const checkoutMessage = document.getElementById('checkout-message');
+    if (cartBtn && cartModal && closeCart) {
+        cartBtn.onclick = function() {
+            cartModal.classList.add('active');
+        };
+        closeCart.onclick = function() {
+            cartModal.classList.remove('active');
+        };
+        window.onclick = function(event) {
+            if (event.target === cartModal) {
+                cartModal.classList.remove('active');
+            }
+        };
+    }
+    if (checkoutBtn && checkoutModal && closeCheckout && checkoutMessage && cartModal) {
+        checkoutBtn.onclick = function() {
+            if (cart.length === 0) {
+                alert('Warenkorb ist leer!');
+                return;
+            }
+            checkoutMessage.textContent = "Bitte überprüfe deine Bestellung und folge den weiteren Anweisungen.";
+            cartModal.classList.remove('active');
+            checkoutModal.classList.add('active');
+        };
+        closeCheckout.onclick = function() {
+            checkoutModal.classList.remove('active');
+        };
+        window.addEventListener('click', function(event) {
+            if (event.target === checkoutModal) {
+                checkoutModal.classList.remove('active');
+            }
+        });
+    }
+}
+
+// --- Initialisierung ---
+window.onload = function() {
+    renderProducts();
+    renderCart();
+    setupInfoModal();
+    setupCartModals();
+};
 drawFlameParticles();
 
 // --- Hintergrund-Animation: Leuchtende Blätter ---
