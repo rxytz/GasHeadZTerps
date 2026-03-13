@@ -22,7 +22,6 @@ function displayProducts() {
             <img src="${product.imageUrl}" alt="${product.name}">
             <h3>${product.name}</h3>
             <p class="price">${product.price.toFixed(2)} €</p>
-            <button class="add-to-cart-btn" data-id="${product.id}">In den Warenkorb</button>
         `;
         productsContainer.appendChild(productElement);
     });
