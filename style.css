@@ -43,10 +43,20 @@
     overflow: auto;
     justify-content: center;
     align-items: center;
-}
-#cart-modal.active {
-    display: flex;
-}
+    .modal-content {
+        background: rgba(20,40,20,0.95);
+        margin: auto;
+        padding: 2rem 1.5rem 1.5rem 1.5rem;
+        border-radius: 12px;
+        min-width: 300px;
+        max-width: 90vw;
+        box-shadow: 0 0 32px 8px #00ff8055;
+        color: #baffc9;
+        position: relative;
+    }
+    /* Entfernt: Merge-Konflikt-Marker ======= */
+    /* entfernt: text-fill-color, nicht standardisiert */
+    /* Entfernt: Merge-Konflikt-Marker >>>>>>> */
 .modal-content {
     background: rgba(20,40,20,0.95);
     margin: auto;
