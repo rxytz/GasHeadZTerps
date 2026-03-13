@@ -105,3 +105,172 @@
     </div>
 </body>
 </html>
+def generate_modern_shop_layout(product_list_items):
+    """
+    Generiert HTML-Code für ein modernes und gut strukturiertes Shop-Layout mit einer Produktliste.
+
+    Args:
+        product_list_items (list): Eine Liste von Strings, die die einzelnen Produkte repräsentieren.
+                                    Jeder String sollte idealerweise Produktname, Preis und eine kurze
+                                    Beschreibung enthalten.
+
+    Returns:
+        str: HTML-Code für das Shop-Layout.
+    """
+
+    # Grundstruktur des HTML-Dokuments
+    html_content = """
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moderner Shop</title>
+    <style>
+        /* Grundlegende Styling-Elemente für ein modernes Aussehen */
+        body {{
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f7f6;
+            color: #333;
+            line-height: 1.6;
+        }}
+        .container {{
+            width: 90%;
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }}
+        header {{
+            text-align: center;
+            margin-bottom: 40px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 20px;
+        }}
+        header h1 {{
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+        }}
+        header p {{
+            font-size: 1.1em;
+            color: #555;
+        }}
+        .product-list {{
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Responsive Spalten */
+            gap: 30px; /* Abstand zwischen den Produkten */
+        }}
+        .product-item {{
+            background-color: #fdfdfd;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }}
+        .product-item:hover {{
+            transform: translateY(-5px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+        }}
+        .product-name {{
+            font-size: 1.4em;
+            color: #34495e;
+            margin-bottom: 10px;
+        }}
+        .product-price {{
+            font-size: 1.2em;
+            color: #e74c3c;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }}
+        .product-description {{
+            font-size: 0.95em;
+            color: #666;
+            flex-grow: 1; /* Ermöglicht, dass die Beschreibung den verbleibenden Platz einnimmt */
+            margin-bottom: 20px;
+        }}
+        .add-to-cart-button {{
+            background-color: #3498db;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: background-color 0.2s ease;
+            margin-top: auto; /* Schiebt den Button nach unten */
+        }}
+        .add-to-cart-button:hover {{
+            background-color: #2980b9;
+        }}
+        footer {{
+            text-align: center;
+            margin-top: 50px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+            font-size: 0.9em;
+            color: #777;
+        }}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Willkommen in unserem modernen Shop!</h1>
+            <p>Entdecken Sie unsere sorgfältig ausgewählten Produkte.</p>
+        </header>
+
+        <main class="product-list">
+    """
+
+    # Hinzufügen der einzelnen Produkt-Elemente
+    for item in product_list_items:
+        # Hier wird angenommen, dass `item` bereits gut formatiert ist.
+        # Für eine komplexere Anwendung könnte man hier eine separate Funktion
+        # zur Aufbereitung der Produktinformationen aufrufen.
+        product_name = f"Produkt: {item.split(',')[0].strip()}" if ',' in item else item
+        product_price = f"Preis: {item.split(',')[1].strip()}" if ',' in item and len(item.split(',')) > 1 else "Preis nicht verfügbar"
+        product_description = f"Beschreibung: {item.split(',')[2].strip()}" if ',' in item and len(item.split(',')) > 2 else "Eine kurze Beschreibung unseres tollen Produkts."
+
+
+        html_content += f"""
+            <article class="product-item">
+                <h2 class="product-name">{product_name}</h2>
+                <p class="product-price">{product_price}</p>
+                <p class="product-description">{product_description}</p>
+                <button class="add-to-cart-button">In den Warenkorb</button>
+            </article>
+        """
+
+    # Abschluss des HTML-Dokuments
+    html_content += """
+        </main>
+
+        <footer>
+            <p>&copy; 2023 Ihr Moderner Shop. Alle Rechte vorbehalten.</p>
+        </footer>
+    </div>
+</body>
+</html>
+    """
+
+    return html_content
+
+# Beispielhafte Verwendung:
+# product_data = [
+#     "Laptop, 1200€, Ein leistungsstarker Laptop für Profis.",
+#     "Smartphone, 750€, Das neueste Modell mit beeindruckender Kamera.",
+#     "Kopfhörer, 150€, Kristallklarer Sound für unterwegs.",
+#     "Smartwatch, 200€, Ihr intelligenter Begleiter für den Alltag."
+# ]
+#
+# shop_html = generate_modern_shop_layout(product_data)
+# print(shop_html)
