@@ -21,6 +21,85 @@
     z-index: -1;
 }
 
+/* Cart Button in Header */
+.cart-toggle-btn {
+    background: linear-gradient(135deg, #8a2be2, #ff6600);
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 10px rgba(138, 43, 226, 0.4);
+    margin-left: 15px;
+}
+
+.cart-toggle-btn:hover {
+    background: linear-gradient(135deg, #9b4dca, #ff8533);
+    box-shadow: 0 0 20px rgba(138, 43, 226, 0.6);
+    transform: scale(1.05);
+}
+
+/* Cart Modal */
+.cart-modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(5px);
+}
+
+.cart-modal-content {
+    background: linear-gradient(145deg, rgba(40, 30, 60, 0.95), rgba(20, 15, 30, 0.98));
+    margin: 10% auto;
+    padding: 2rem;
+    border: 1px solid rgba(0, 255, 0, 0.3);
+    border-radius: 12px;
+    width: 90%;
+    max-width: 500px;
+    box-shadow: 0 0 30px rgba(0, 255, 0, 0.3), 0 0 60px rgba(138, 43, 226, 0.2);
+    position: relative;
+}
+
+.cart-close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.cart-close:hover {
+    color: #fff;
+}
+
+.cart-modal-content h2 {
+    color: #00ff88;
+    border-bottom: 2px solid #00ff88;
+    padding-bottom: 0.5rem;
+    margin-top: 0;
+}
+
+.cart-modal-content .cart-total {
+    margin-top: 1.5rem;
+    text-align: right;
+    font-size: 1.2rem;
+    color: #00ff88;
+    text-shadow: 0 0 8px rgba(0, 255, 136, 0.3);
+}
+
+.cart-modal-content #checkout-button {
+    width: 100%;
+    margin-top: 1.5rem;
+}
+
 /* Animierter Hintergrund - Dunkel mit Lila-Orange Wasser-Effekt - REPLACED BY VIDEO
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;

@@ -82,6 +82,28 @@ document.getElementById('checkout-button').addEventListener('click', () => {
     renderCart(); // Warenkorb neu rendern
 });
 
+// Cart Modal Functionality
+const cartModal = document.getElementById('cart-modal');
+const cartButton = document.getElementById('cart-button');
+const cartClose = document.querySelector('.cart-close');
+
+// Open cart modal
+cartButton.addEventListener('click', () => {
+    cartModal.style.display = 'block';
+});
+
+// Close cart modal
+cartClose.addEventListener('click', () => {
+    cartModal.style.display = 'none';
+});
+
+// Close modal when clicking outside
+window.addEventListener('click', (event) => {
+    if (event.target === cartModal) {
+        cartModal.style.display = 'none';
+    }
+});
+
 // Initialisierung: Produkte und Warenkorb anzeigen, wenn die Seite geladen ist
 document.addEventListener('DOMContentLoaded', () => {
     displayProducts();
