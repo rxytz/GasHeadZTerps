@@ -260,28 +260,25 @@ main {
     backdrop-filter: blur(10px);
 }
 
-.cta-button {
+.cta-button, #shop-button {
     display: inline-block;
-    background: linear-gradient(135deg, #8a2be2, #ff6600);
-    color: white;
+    background: linear-gradient(135deg, #004d00, #006400) !important;
+    color: #00ff88 !important;
     padding: 12px 25px;
-    border: none;
+    border: 2px solid #00ff88 !important;
     border-radius: 5px;
     cursor: pointer;
     font-size: 1.1rem;
     font-weight: bold;
     transition: all 0.3s ease;
-    box-shadow: 
-        0 4px 15px rgba(138, 43, 226, 0.4),
-        0 0 20px rgba(255, 102, 0, 0.2);
+    box-shadow: 0 0 10px rgba(0, 255, 136, 0.4), inset 0 0 10px rgba(0, 255, 136, 0.1);
+    text-shadow: 0 0 5px rgba(0, 255, 136, 0.5);
 }
 
-.cta-button:hover {
-    background: linear-gradient(135deg, #9b4dca, #ff8533);
+.cta-button:hover, #shop-button:hover {
+    background: linear-gradient(135deg, #006400, #008000) !important;
     transform: translateY(-2px);
-    box-shadow: 
-        0 6px 25px rgba(138, 43, 226, 0.5),
-        0 0 30px rgba(255, 102, 0, 0.4);
+    box-shadow: 0 6px 25px rgba(0, 255, 136, 0.5), 0 0 30px rgba(0, 255, 136, 0.3), inset 0 0 15px rgba(0, 255, 136, 0.2) !important;
 }
 
 footer {
@@ -386,10 +383,10 @@ footer {
 }
 
 .product-item .add-to-cart-btn {
-    background: linear-gradient(135deg, #00cc6a, #00ff88);
-    color: #1a0a2e;
+    background: linear-gradient(135deg, #004d00, #006400);
+    color: #00ff88;
     padding: 10px 20px;
-    border: none;
+    border: 2px solid #00ff88;
     border-radius: 5px;
     cursor: pointer;
     font-size: 1rem;
@@ -399,7 +396,7 @@ footer {
 }
 
 .product-item .add-to-cart-btn:hover {
-    background: linear-gradient(135deg, #00ff88, #66ffaa);
+    background: linear-gradient(135deg, #006400, #008000);
     box-shadow: 0 0 20px rgba(0, 255, 136, 0.5);
     transform: scale(1.05);
 }
@@ -456,14 +453,15 @@ footer {
 #checkout-button {
     width: 100%;
     margin-top: 1.5rem;
-    background: linear-gradient(135deg, #ff9500, #ff6b00);
-    color: #1a0a2e;
-    box-shadow: 0 0 15px rgba(255, 149, 0, 0.4);
+    background: linear-gradient(135deg, #004d00, #006400) !important;
+    color: #00ff88 !important;
+    border: 2px solid #00ff88 !important;
+    box-shadow: 0 0 15px rgba(0, 255, 136, 0.4);
 }
 
 #checkout-button:hover {
-    background: linear-gradient(135deg, #ffaa33, #ff8533);
-    box-shadow: 0 0 25px rgba(255, 149, 0, 0.6);
+    background: linear-gradient(135deg, #006400, #008000) !important;
+    box-shadow: 0 0 25px rgba(0, 255, 136, 0.6);
 }
 
 /* Responsive Anpassungen */
