@@ -127,117 +127,117 @@ const products = [
 const cart = [];
 
 // --- Produktliste rendern ---
-/* ...nur die funktionierende Shop-Logik bleibt erhalten, Konflikt-Marker und Duplikate entfernt... */
-        cartModal.classList.remove('active');
-    }
-};
-
-const checkoutModal = document.getElementById('checkout-modal');
-const closeCheckout = document.getElementById('close-checkout');
-const checkoutMessage = document.getElementById('checkout-message');
-
-checkoutBtn.onclick = function() {
-    if (cart.length === 0) {
-        alert('Warenkorb ist leer!');
-        return;
-    }
-    checkoutMessage.textContent = "Bitte überprüfe deine Bestellung und folge den weiteren Anweisungen.";
-    cartModal.classList.remove('active');
-    checkoutModal.classList.add('active');
-};
-closeCheckout.onclick = function() {
-    checkoutModal.classList.remove('active');
-};
-window.addEventListener('click', function(event) {
-    if (event.target === checkoutModal) {
-        checkoutModal.classList.remove('active');
-    }
-});
-
-// --- Animationen: Flammen und Blätter (wie vorher) ---
-const flameCanvas = document.getElementById('flame-canvas');
-const flameCtx = flameCanvas ? flameCanvas.getContext('2d') : null;
-const bgCanvas = document.getElementById('bg-canvas');
-const ctx = bgCanvas.getContext('2d');
-let width = window.innerWidth;
-let height = window.innerHeight;
-if (flameCanvas) {
-    flameCanvas.width = width;
-    flameCanvas.height = Math.floor(height * 0.3);
+function renderProducts() {
+    const productsDiv = document.getElementById('products');
+    if (!productsDiv) return;
+    productsDiv.innerHTML = '<h2>Produkte</h2>' +
+        products.map(p => `
+            <div class="product">
+                <h3>${p.name}</h3>
+                <p>${p.price.toFixed(2)} €</p>
+                <button onclick="addToCart(${p.id})">In den Warenkorb</button>
+            </div>
+        `).join('');
 }
-bgCanvas.width = width;
-bgCanvas.height = height;
 
-// --- Flammen-Animation (Dummy, falls gewünscht ausbauen) ---
-// ...hier kann die Flammenanimation wie vorher eingefügt werden...
-
-// --- Blätter-Animation (Dummy, falls gewünscht ausbauen) ---
-// ...hier kann die Blätteranimation wie vorher eingefügt werden...
-
-// Initiales Rendern
-renderProducts();
-renderCart();
-<<<<<<< HEAD
-// Info Modal-Logik
-const infoBtn = document.getElementById('info-btn');
-const infoModal = document.getElementById('info-modal');
-const closeInfo = document.getElementById('close-info');
-const infoMessage = document.getElementById('info-message');
-
-infoBtn.onclick = function() {
-    // Hier kannst du den Infotext anpassen:
-    infoMessage.textContent = "Hier kannst du deine Info oder Hinweise eintragen!";
-    infoModal.classList.add('active');
-};
-closeInfo.onclick = function() {
-    infoModal.classList.remove('active');
-};
-window.addEventListener('click', function(event) {
-    if (event.target === infoModal) {
-        infoModal.classList.remove('active');
-    }
-});
-const products = [
-    { id: 1, name: "Produkt A", price: 9.99 },
-        vy: -Math.random() * 2.2 - 1.2,
-        size: Math.random() * 22 + 18,
-        alpha: Math.random() * 0.4 + 0.5,
-        maxLife: Math.random() * 60 + 60,
-        color: Math.random() > 0.5 ? 'rgba(255,180,0,0.7)' : 'rgba(255,60,0,0.5)'
-    };
+// --- Warenkorb rendern ---
+function renderCart() {
+    const cartItems = document.getElementById('cart-items');
+    if (!cartItems) return;
+    cartItems.innerHTML = cart.length === 0
+        ? '<li>Dein Warenkorb ist leer.</li>'
+        : cart.map(item => `
+            <li>${item.name} x${item.qty} <span>${(item.price * item.qty).toFixed(2)} €</span></li>
+        `).join('');
+    const cartCount = document.getElementById('cart-count');
+    if (cartCount) cartCount.textContent = cart.reduce((sum, item) => sum + item.qty, 0);
 }
-function drawFlameParticles() {
-    flameCtx.clearRect(0, 0, width, flameCanvas.height);
-    for (let i = flameParticles.length - 1; i >= 0; i--) {
-        const p = flameParticles[i];
-        p.x += p.vx + Math.sin(Date.now()/200 + p.x) * 0.1;
-        p.y += p.vy - Math.abs(Math.sin(Date.now()/300 + p.x) * 0.1);
-        p.life++;
-        p.alpha *= 0.985;
-        // Farbverlauf nach oben
-        let grad = flameCtx.createRadialGradient(p.x, p.y, 2, p.x, p.y, p.size);
-        grad.addColorStop(0, 'rgba(255,255,180,0.7)');
-        grad.addColorStop(0.3, p.color);
-        grad.addColorStop(1, 'rgba(255,0,0,0.05)');
-        flameCtx.save();
-        flameCtx.globalAlpha = p.alpha;
-        flameCtx.beginPath();
-        flameCtx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-        flameCtx.fillStyle = grad;
-        flameCtx.shadowColor = '#ffb300';
-        flameCtx.shadowBlur = 32;
-        flameCtx.fill();
-        flameCtx.restore();
-        if (p.life > p.maxLife || p.alpha < 0.05 || p.y < 0) {
-            flameParticles.splice(i, 1);
-        }
+
+// --- Produkt zum Warenkorb hinzufügen ---
+window.addToCart = function(id) {
+    const product = products.find(p => p.id === id);
+    if (!product) return;
+    const existing = cart.find(item => item.id === id);
+    if (existing) {
+        existing.qty++;
+    } else {
+        cart.push({ ...product, qty: 1 });
     }
-    // Neue Partikel erzeugen
-    while (flameParticles.length < maxParticles) {
-        flameParticles.push(createFlameParticle());
+    renderCart();
+};
+
+// --- Info-Modal Logik ---
+function setupInfoModal() {
+    const infoBtn = document.getElementById('info-btn');
+    const infoModal = document.getElementById('info-modal');
+    const closeInfo = document.getElementById('close-info');
+    const infoMessage = document.getElementById('info-message');
+    if (infoBtn && infoModal && closeInfo && infoMessage) {
+        infoBtn.onclick = function() {
+            infoMessage.textContent = "Hier kannst du deine Info oder Hinweise eintragen!";
+            infoModal.classList.add('active');
+        };
+        closeInfo.onclick = function() {
+            infoModal.classList.remove('active');
+        };
+        window.addEventListener('click', function(event) {
+            if (event.target === infoModal) {
+                infoModal.classList.remove('active');
+            }
+        });
     }
-    requestAnimationFrame(drawFlameParticles);
 }
+
+// --- Warenkorb- und Checkout-Modal Logik ---
+function setupCartModals() {
+    const cartBtn = document.getElementById('cart-btn');
+    const cartModal = document.getElementById('cart-modal');
+    const closeCart = document.getElementById('close-cart');
+    const checkoutBtn = document.getElementById('checkout');
+    const checkoutModal = document.getElementById('checkout-modal');
+    const closeCheckout = document.getElementById('close-checkout');
+    const checkoutMessage = document.getElementById('checkout-message');
+    if (cartBtn && cartModal && closeCart) {
+        cartBtn.onclick = function() {
+            cartModal.classList.add('active');
+        };
+        closeCart.onclick = function() {
+            cartModal.classList.remove('active');
+        };
+        window.onclick = function(event) {
+            if (event.target === cartModal) {
+                cartModal.classList.remove('active');
+            }
+        };
+    }
+    if (checkoutBtn && checkoutModal && closeCheckout && checkoutMessage && cartModal) {
+        checkoutBtn.onclick = function() {
+            if (cart.length === 0) {
+                alert('Warenkorb ist leer!');
+                return;
+            }
+            checkoutMessage.textContent = "Bitte überprüfe deine Bestellung und folge den weiteren Anweisungen.";
+            cartModal.classList.remove('active');
+            checkoutModal.classList.add('active');
+        };
+        closeCheckout.onclick = function() {
+            checkoutModal.classList.remove('active');
+        };
+        window.addEventListener('click', function(event) {
+            if (event.target === checkoutModal) {
+                checkoutModal.classList.remove('active');
+            }
+        });
+    }
+}
+
+// --- Initialisierung ---
+window.onload = function() {
+    renderProducts();
+    renderCart();
+    setupInfoModal();
+    setupCartModals();
+};
 drawFlameParticles();
 
 // --- Hintergrund-Animation: Leuchtende Blätter ---
