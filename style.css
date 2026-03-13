@@ -23,10 +23,10 @@
 
 /* Site Logo */
 .site-logo {
-    max-width: 300px;
+    max-width: 350px;
     height: auto;
     display: block;
-    margin: 20px auto 10px;
+    margin: 0 auto 5px;
     padding: 10px;
 }
 
