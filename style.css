@@ -1,10 +1,11 @@
     body {
-        font-family: Arial, sans-serif;
+    /* Neuer Shop: Hier kannst du dein CSS schreiben */
+    body {
         margin: 0;
         padding: 0;
-        background: linear-gradient(135deg, #0a1a0a 0%, #1a2d1a 60%, #3a1a4d 100%);
-        min-height: 100vh;
-        color: #baffc9;
+        font-family: Arial, sans-serif;
+        background: #181818;
+        color: #fff;
     }
 
     .header-row {

@@ -1,3 +1,4 @@
+// Neuer Shop: Hier kannst du dein JavaScript schreiben
 // --- Produktdaten ---
 const products = [
     { id: 1, name: "Produkt A", price: 9.99 },
