@@ -224,16 +224,12 @@ body::before {
 
 /* Grüner Glow für Header */
 header {
-    background: linear-gradient(180deg, rgba(0, 100, 0, 0.4) 0%, rgba(0, 50, 0, 0.5) 100%);
+    background: transparent !important;
     color: #fff;
     padding: 1rem 0;
     text-align: center;
-    box-shadow: 
-        0 2px 4px rgba(0,0,0,0.3),
-        0 0 20px rgba(0, 255, 0, 0.3),
-        inset 0 1px 0 rgba(0, 255, 0, 0.2);
-    border-bottom: 2px solid rgba(0, 255, 0, 0.5);
-    backdrop-filter: blur(10px);
+    box-shadow: none;
+    border-bottom: none;
 }
 
 header h1 {
