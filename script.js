@@ -1,3 +1,128 @@
+// --- Produktdaten ---
+const products = [
+    { id: 1, name: "Produkt A", price: 9.99 },
+    { id: 2, name: "Produkt B", price: 14.99 },
+    { id: 3, name: "Produkt C", price: 7.49 }
+];
+const cart = [];
+
+// --- Produktliste rendern ---
+function renderProducts() {
+    const productsDiv = document.getElementById('products');
+    productsDiv.innerHTML = '<h2>Produkte</h2>' +
+        products.map(p => `
+            <div class="product">
+                <h3>${p.name}</h3>
+                <p>${p.price.toFixed(2)} €</p>
+                <button onclick="addToCart(${p.id})">In den Warenkorb</button>
+            </div>
+        `).join('');
+}
+
+// --- Warenkorb rendern ---
+function renderCart() {
+    const cartItems = document.getElementById('cart-items');
+    cartItems.innerHTML = cart.length === 0
+        ? '<li>Dein Warenkorb ist leer.</li>'
+        : cart.map(item => `
+            <li>${item.name} x${item.qty} <span>${(item.price * item.qty).toFixed(2)} €</span></li>
+        `).join('');
+    document.getElementById('cart-count').textContent = cart.reduce((sum, item) => sum + item.qty, 0);
+}
+
+// --- Produkt zum Warenkorb hinzufügen ---
+window.addToCart = function(id) {
+    const product = products.find(p => p.id === id);
+    const existing = cart.find(item => item.id === id);
+    if (existing) {
+        existing.qty++;
+    } else {
+        cart.push({ ...product, qty: 1 });
+    }
+    renderCart();
+};
+
+// --- Modals (Info, Warenkorb, Checkout) ---
+const infoBtn = document.getElementById('info-btn');
+const infoModal = document.getElementById('info-modal');
+const closeInfo = document.getElementById('close-info');
+const infoMessage = document.getElementById('info-message');
+
+infoBtn.onclick = function() {
+    infoMessage.textContent = "Hier kannst du deine Info oder Hinweise eintragen!";
+    infoModal.classList.add('active');
+};
+closeInfo.onclick = function() {
+    infoModal.classList.remove('active');
+};
+window.addEventListener('click', function(event) {
+    if (event.target === infoModal) {
+        infoModal.classList.remove('active');
+    }
+});
+
+const cartBtn = document.getElementById('cart-btn');
+const cartModal = document.getElementById('cart-modal');
+const closeCart = document.getElementById('close-cart');
+const checkoutBtn = document.getElementById('checkout');
+
+cartBtn.onclick = function() {
+    cartModal.classList.add('active');
+};
+closeCart.onclick = function() {
+    cartModal.classList.remove('active');
+};
+window.onclick = function(event) {
+    if (event.target === cartModal) {
+        cartModal.classList.remove('active');
+    }
+};
+
+const checkoutModal = document.getElementById('checkout-modal');
+const closeCheckout = document.getElementById('close-checkout');
+const checkoutMessage = document.getElementById('checkout-message');
+
+checkoutBtn.onclick = function() {
+    if (cart.length === 0) {
+        alert('Warenkorb ist leer!');
+        return;
+    }
+    checkoutMessage.textContent = "Bitte überprüfe deine Bestellung und folge den weiteren Anweisungen.";
+    cartModal.classList.remove('active');
+    checkoutModal.classList.add('active');
+};
+closeCheckout.onclick = function() {
+    checkoutModal.classList.remove('active');
+};
+window.addEventListener('click', function(event) {
+    if (event.target === checkoutModal) {
+        checkoutModal.classList.remove('active');
+    }
+});
+
+// --- Animationen: Flammen und Blätter (wie vorher) ---
+const flameCanvas = document.getElementById('flame-canvas');
+const flameCtx = flameCanvas ? flameCanvas.getContext('2d') : null;
+const bgCanvas = document.getElementById('bg-canvas');
+const ctx = bgCanvas.getContext('2d');
+let width = window.innerWidth;
+let height = window.innerHeight;
+if (flameCanvas) {
+    flameCanvas.width = width;
+    flameCanvas.height = Math.floor(height * 0.3);
+}
+bgCanvas.width = width;
+bgCanvas.height = height;
+
+// --- Flammen-Animation (Dummy, falls gewünscht ausbauen) ---
+// ...hier kann die Flammenanimation wie vorher eingefügt werden...
+
+// --- Blätter-Animation (Dummy, falls gewünscht ausbauen) ---
+// ...hier kann die Blätteranimation wie vorher eingefügt werden...
+
+// Initiales Rendern
+renderProducts();
+renderCart();
 <<<<<<< HEAD
 // Info Modal-Logik
 const infoBtn = document.getElementById('info-btn');
