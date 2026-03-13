@@ -134,7 +134,7 @@ body::before {
 
 /* Grüner Glow für Header */
 header {
-    background: linear-gradient(180deg, rgba(0, 100, 0, 0.6) 0%, rgba(0, 50, 0, 0.7) 100%);
+    background: linear-gradient(180deg, rgba(0, 100, 0, 0.4) 0%, rgba(0, 50, 0, 0.5) 100%);
     color: #fff;
     padding: 1rem 0;
     text-align: center;
@@ -169,7 +169,7 @@ main {
     padding: 2rem;
     max-width: 1200px;
     margin: 2rem auto;
-    background: rgba(30, 20, 40, 0.7);
+    background: rgba(30, 20, 40, 0.4);
     border-radius: 12px;
     box-shadow: 
         0 4px 8px rgba(0,0,0,0.3),
@@ -206,7 +206,7 @@ main {
 footer {
     text-align: center;
     padding: 1.5rem 0;
-    background: linear-gradient(180deg, rgba(0, 50, 0, 0.6), rgba(0, 30, 0, 0.7));
+    background: linear-gradient(180deg, rgba(0, 50, 0, 0.4), rgba(0, 30, 0, 0.5));
     color: #00ff88;
     font-size: 0.9rem;
     border-top: 1px solid rgba(0, 255, 0, 0.3);
@@ -264,7 +264,7 @@ footer {
     padding: 1.5rem;
     text-align: center;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    background: linear-gradient(145deg, rgba(40, 30, 60, 0.6), rgba(20, 15, 30, 0.65));
+    background: linear-gradient(145deg, rgba(40, 30, 60, 0.3), rgba(20, 15, 30, 0.35));
     box-shadow: 
         0 4px 15px rgba(0, 0, 0, 0.3),
         0 0 15px rgba(138, 43, 226, 0.1);
@@ -326,7 +326,7 @@ footer {
 .cart {
     flex: 1;
     min-width: 250px;
-    background: linear-gradient(145deg, rgba(30, 50, 40, 0.6), rgba(15, 30, 20, 0.65));
+    background: linear-gradient(145deg, rgba(30, 50, 40, 0.3), rgba(15, 30, 20, 0.35));
     padding: 1.5rem;
     border-radius: 12px;
     box-shadow: 
