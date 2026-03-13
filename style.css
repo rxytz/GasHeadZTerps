@@ -1,0 +1,215 @@
+#info-btn {
+    background: #1a2d4d;
+    color: #baffc9;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 50%;
+    font-size: 1.3rem;
+    margin-right: 0.5rem;
+    cursor: pointer;
+    box-shadow: 0 0 8px #00ff80aa;
+    transition: background 0.2s;
+}
+#info-btn:hover {
+    background: #2aff80;
+    color: #0a1a0a;
+}
+#info-modal {
+    display: none;
+    position: fixed;
+    z-index: 102;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    overflow: auto;
+    background: rgba(0,0,0,0.5);
+    justify-content: center;
+    align-items: center;
+}
+#info-modal.active {
+    display: flex;
+}
+/* Checkout Modal */
+#checkout-modal {
+    display: none;
+    position: fixed;
+    z-index: 101;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    overflow: auto;
+    background: rgba(0,0,0,0.5);
+    justify-content: center;
+    align-items: center;
+}
+#checkout-modal.active {
+    display: flex;
+}
+/* ...bisherige CSS bleibt erhalten, Logo-Code entfernt... */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(135deg, #0a1a0a 0%, #1a2d1a 60%, #3a1a4d 100%);
+    min-height: 100vh;
+}
+.header-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    background: transparent;
+    color: #baffc9;
+    padding: 1rem 0.5rem;
+    position: relative;
+    z-index: 2;
+}
+.logo-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1 1 auto;
+    margin-bottom: 0;
+}
+#info-btn {
+    margin-right: 0;
+    margin-left: 0.5rem;
+}
+#cart-btn {
+    margin-left: 0;
+    margin-right: 0.5rem;
+}
+main {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2rem;
+    padding: 2rem;
+}
+#products {
+    flex: 2 1 300px;
+    max-width: 600px;
+    background: rgba(20, 40, 20, 0.5);
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,255,80,0.04);
+    padding: 1rem;
+    border: 3px solid;
+    border-image: linear-gradient(90deg, rgba(255,60,0,0.45), rgba(255,179,0,0.35), rgba(255,60,0,0.45)) 1;
+    box-shadow: 0 0 24px 4px #ff3c0044, 0 0 48px 8px #ffb30022;
+}
+
+#flame-canvas {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100vw;
+    height: 30vh;
+    z-index: 0;
+    pointer-events: none;
+    display: block;
+}
+
+/* Modal Warenkorb */
+#cart-modal {
+    display: none;
+    position: fixed;
+    z-index: 100;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    overflow: auto;
+    background: rgba(0,0,0,0.5);
+    justify-content: center;
+    align-items: center;
+}
+#cart-modal.active {
+    display: flex;
+}
+.modal-content {
+    background: rgba(20,40,20,0.95);
+    margin: auto;
+    padding: 2rem 1.5rem 1.5rem 1.5rem;
+    border-radius: 12px;
+    min-width: 300px;
+    max-width: 90vw;
+    box-shadow: 0 0 32px 8px #00ff8055;
+    color: #baffc9;
+    position: relative;
+}
+.close {
+    position: absolute;
+    top: 1rem;
+    right: 1.5rem;
+    font-size: 2rem;
+    color: #ff3c00;
+    cursor: pointer;
+    z-index: 10;
+}
+
+footer {
+    padding: 2rem;
+    text-align: center;
+    position: relative;
+    z-index: 2;
+}
+#cart h2 {
+    margin-top: 0;
+}
+#cart-items {
+    list-style: none;
+    padding: 0;
+}
+#cart-items li {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+    background: transparent;
+    color: #baffc9;
+}
+button {
+    background: #1a4d1a;
+    color: #baffc9;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.2s;
+    box-shadow: 0 0 8px #00ff80aa;
+}
+button:hover {
+    background: #2aff80;
+    color: #0a1a0a;
+}
+.logo-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 0.5rem;
+    position: relative;
+}
+
+.logo-glow {
+    font-size: 2.5rem;
+    font-weight: bold;
+    letter-spacing: 0.1em;
+    color: #fff;
+    background: linear-gradient(90deg, #ff3c00 10%, #ffb300 60%, #ff3c00 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-fill-color: transparent;
+    filter: drop-shadow(0 0 16px #ffb300cc) drop-shadow(0 0 32px #ff3c00cc);
+    animation: logoPulse 2.5s infinite alternate;
+}
+@keyframes logoPulse {
+    0% {
+        filter: drop-shadow(0 0 8px #ffb300cc) drop-shadow(0 0 16px #ff3c00cc);
+    }
+    100% {
+        filter: drop-shadow(0 0 32px #ffb300cc) drop-shadow(0 0 48px #ff3c00cc);
+    }
+}
